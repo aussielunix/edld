@@ -2,6 +2,8 @@
 
 require 'daemons'
 require 'yell'
+require 'serialport'
+
 
 # global logger
 # this will:
@@ -16,14 +18,20 @@ require 'yell'
   l.adapter STDERR, level: [:error, :fatal]
 end
 
+port_str = "/dev/ttyUSB0"  #may be different for you
+baud_rate = 57600
+data_bits = 8
+stop_bits = 1
+parity = SerialPort::NONE
+
+sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
 
 # Become a daemon
 Daemons.daemonize
 
 # The server loop
 loop {
-  @logger.info("info message")
-  @logger.debug("debug message")
-  @logger.error("an error occured")
-  sleep 2
+  data = sp.read
+  @logger.info(data) unless data == ""
+  sleep 1
 }
