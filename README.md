@@ -23,7 +23,7 @@ See [Contributing](CONTRIBUTING.md)
 
 ### Licence
 
-The MIT License (MIT)
+The MIT License (MIT)  
 Copyright 2013 Mick Pollard @aussielunix
 
 See [LICENSE](LICENSE.md)
