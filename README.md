@@ -1,6 +1,6 @@
 ## edld - Environment Data Logging Daemon
 
-*edld* is an environmental data logger. It will take data from a variety of sensors/sources and dumpt to a db.
+*edld* is an environmental data logger. It will take data from a variety of sensors/sources and dump to a db.
 
 The current goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a mysql db in a format that [MeasureIT](https://code.google.com/p/measureit/) can use.
 
