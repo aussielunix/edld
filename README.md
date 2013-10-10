@@ -1,4 +1,4 @@
-# edld - Environment Data Logging Daemon
+## edld - Environment Data Logging Daemon
 
 *edld* is an environmental data logger. It will take data from a variety of sensors/sources and dumpt to a db.
 
