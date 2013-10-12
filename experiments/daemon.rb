@@ -3,6 +3,7 @@
 require 'daemons'
 require 'yell'
 require 'serialport'
+require 'xmlsimple'
 
 
 # global logger
@@ -18,20 +19,41 @@ require 'serialport'
   l.adapter STDERR, level: [:error, :fatal]
 end
 
-port_str = "/dev/ttyUSB0"  #may be different for you
+port_str = "/dev/ttyUSB0"
 baud_rate = 57600
 data_bits = 8
 stop_bits = 1
 parity = SerialPort::NONE
 
-sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
 
 # Become a daemon
-Daemons.daemonize
+#Daemons.daemonize
 
-# The server loop
+begin
+  sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
+  @logger.info("Connected to #{port_str}")
+rescue
+  @logger.fatal("Something went wrong")
+  exit 1
+end
+
+
+## The server loop
 loop {
-  data = sp.read
-  @logger.info(data) unless data == ""
+  raw_data  = sp.read
+  unless raw_data == ''
+    data      = XmlSimple.xml_in(raw_data)
+    src       = data['src'].first
+    dsb       = data['dsb'].first
+    time      = data['time'].first
+    tmpr      = data['tmpr'].first
+    sensor    = data['sensor'].first
+    id        = data['id'].first
+    type      = data['type'].first
+    ch1watts  = data['ch1'].map { |w| w['watts'].first }.first
+
+    @logger.info("At #{time} #{ch1watts} watts of energy was being consumed with a room temperature of #{tmpr}")
+  end
   sleep 1
 }
+
