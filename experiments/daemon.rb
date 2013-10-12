@@ -27,7 +27,7 @@ parity = SerialPort::NONE
 
 
 # Become a daemon
-#Daemons.daemonize
+Daemons.daemonize
 
 begin
   sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
