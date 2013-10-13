@@ -15,7 +15,7 @@ module Edld
         Escort::Logger.output.puts "User config: #{config}"
       end
 
-      port_str = "/dev/ttyUSB0"
+      port_str = options[:global][:options][:serial_port]
       baud_rate = 57600
       data_bits = 8
       stop_bits = 1
