@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'escort'
+require 'edld'
+
+Escort::App.create do |app|
+  app.version Edld::VERSION
+  app.summary "CurrentCost Envir data logger daemon"
+  app.description "daemon to collect CurrentCost Envir data and dump into mysql"
+
+  app.options do |opts|
+    opts.opt :daemonize, "Start in background", :long => '--daemonize', :type => :boolean, :default => true
+    opts.opt :serial_port, "Serial Port to listen to", :short => '-s', :long => '--port', :type => :string, :default => '/dev/ttyUSB0'
+    opts.opt :dbname, "MySQL database name to dump data into", :short => '-d', :long => '--dbname', :type => :string, :default => 'envirdata'
+    opts.opt :dbuser, "MySQL database username", :short => '-u', :long => '--dbuser', :type => :string, :default => 'notroot'
+    opts.opt :dbpassword, "MySQL database password", :short => '-p', :long => '--dbpass', :type => :string, :default => '7iywmfVL1uzEZj7r'
+  end
+
+  app.action do |options, arguments|
+    Edld::DataLogger.new(options, arguments).execute
+  end
+end
