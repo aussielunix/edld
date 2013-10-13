@@ -21,6 +21,8 @@ module Edld
       stop_bits = 1
       parity = SerialPort::NONE
 
+      Daemons.daemonize if options[:global][:options][:daemonize]
+
       begin
         sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
         Escort::Logger.output.puts "Connected to #{port_str}"
