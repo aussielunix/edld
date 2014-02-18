@@ -32,7 +32,7 @@ module Edld
       end
 
       loop {
-        raw_data  = sp.read
+        raw_data  = sp.readline.chomp!
         unless raw_data == ''
           data      = XmlSimple.xml_in(raw_data)
           src       = data['src'].first
