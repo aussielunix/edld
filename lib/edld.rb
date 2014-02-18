@@ -1,3 +1,10 @@
-#!/usr/bin/env ruby
+require 'mixlib/cli'
+require 'mixlib/log'
+require 'mixlib/config'
+require 'mixlib/shellout'
 
-require 'edld/command.rb'
+require 'edld/shellout'
+require 'edld/config'
+require 'edld/logger'
+require 'edld/cli'
+require 'edld/version'

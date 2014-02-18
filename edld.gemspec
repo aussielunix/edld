@@ -17,15 +17,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency('rdoc')
-  spec.add_development_dependency('aruba')
-  spec.add_development_dependency('rake', '~> 0.9.2')
-  spec.add_development_dependency('rspec')
-  spec.add_dependency('escort', '~> 0.4.0')
   spec.add_dependency('daemons')
   spec.add_dependency('yell')
   spec.add_dependency('serialport')
   spec.add_dependency('xml-simple')
+  spec.add_dependency('mixlib-log')
+  spec.add_dependency('mixlib-cli')
+  spec.add_dependency('mixlib-config')
+  spec.add_dependency('mixlib-shellout')
 end
