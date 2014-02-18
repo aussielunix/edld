@@ -19,16 +19,27 @@ module Edld
       :show_options => true,
       :exit => 0
 
+    option :foreground,
+      :short        => '-F',
+      :long         => '--foreground',
+      :description  => 'Run the app in the foreground (do not daemonize)',
+      :boolean      => true,
+      :default      => false
+
+    option :serial_port,
+      :short        => '-s',
+      :long         => '--port PORT',
+      :description  => 'serial port to connect to [/dev/ttyUSB0]',
+      :required     => true,
+      :default      => '/dev/ttyUSB0'
+
     def run(argv=ARGV)
       parse_options(argv)
       ::Edld::Config.merge!(config)
 
       ::Edld::Log.level = Edld::Config.log_level
 
-      ## provided by Edld::Shellout
-      # it will return stdout,stderr if you want them
-      #
-      systemr('/usr/bin/uptime')
+      ::Edld::DataLogger.new.run
     end
   end
 end
