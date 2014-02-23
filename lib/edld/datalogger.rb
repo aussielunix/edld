@@ -3,6 +3,16 @@ module Edld
     include Observable
 
     def run
+
+      daemon_options = {
+        :ontop    => Edld::Config.foreground,
+        :app_name => 'edld',
+        :dir      => '/var/run/edld',
+        :dir_mode => :normal
+      }
+
+      Daemons.daemonize(daemon_options)
+
       # TODO: move to a config file
       #
       port_str   = Edld::Config.serial_port
