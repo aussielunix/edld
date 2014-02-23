@@ -11,6 +11,8 @@ module Edld
         :dir_mode => :normal
       }
 
+      #TODO: look at Daemonize#run_proc
+      #TODO: http://daemons.rubyforge.org/Daemons.html
       Daemons.daemonize(daemon_options)
 
       # TODO: move to a config file
