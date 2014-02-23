@@ -1,15 +1,14 @@
 require 'daemons'
 require 'serialport'
 require 'xmlsimple'
+require 'observer'
 
 require 'mixlib/cli'
 require 'mixlib/log'
 require 'mixlib/config'
 require 'mixlib/shellout'
 
-require 'edld/shellout'
-require 'edld/config'
-require 'edld/logger'
-require 'edld/datalogger'
 require 'edld/cli'
+require 'edld/datalogger'
 require 'edld/version'
+require 'edld/notifiers'

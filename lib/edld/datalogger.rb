@@ -1,42 +1,36 @@
 module Edld
   class DataLogger
-    def run
-      Daemons.daemonize if Edld::Config.foreground == false
-        serial_port = {
-          :port_str   => Edld::Config.serial_port,
-          :baud_rate  => 57600,
-          :data_bits  => 8,
-          :stop_bits  => 1,
-          :parity     => SerialPort::NONE
-        }
+    include Observable
 
+    def run
+      # TODO: move to a config file
+      #
+      port_str   = Edld::Config.serial_port
+      baud_rate  = 57600
+      data_bits  = 8
+      stop_bits  = 1
+      parity     = SerialPort::NONE
+
+      # connect to serial port
+      #
       begin
-        sp = SerialPort.new(serial_port)
+        sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
         Edld::Log.debug "Connected to #{port_str}"
-      rescue
-        Edld::Log.fatal "Something went wrong"
+      rescue => e
+        Edld::Log.fatal "Something went wrong connecting to #{port_str}"
+        Edld::Log.debug e
         exit 1
       end
+
+      # loop for ever reading the serial port
+      #
       loop {
         raw_data  = sp.readline.chomp!
         unless raw_data == ''
           data      = XmlSimple.xml_in(raw_data)
-          src       = data['src'].first
-          dsb       = data['dsb'].first
-          time      = data['time'].first
-          tmpr      = data['tmpr'].first
-          sensor    = data['sensor'].first
-          id        = data['id'].first
-          type      = data['type'].first
-          ch1watts  = data['ch1'].map { |w| w['watts'].first }.first
-
-          Edld::Log.debug "raw data dump #{data.inspect}"
-          Edld::Log.debug "src: #{src}"
-          Edld::Log.debug "dsb: #{dsb}"
-          Edld::Log.debug "sensor: #{sensor}"
-          Edld::Log.debug "id: #{id}"
-          Edld::Log.debug "type: #{type}"
-          Edld::Log.info "At #{time} #{ch1watts} was being consumed with a temperature of #{tmpr}"
+          Edld::Log.debug "Edld::DataLogger raw data dump #{data.inspect}"
+          changed
+          notify_observers(data)
         end
         sleep 1
       }
