@@ -1,9 +1,9 @@
 module Edld
-  module Input
+  class Source
     class Serial
-      def initialize(port)
-        Edld::Log.debug "Connected to #{port}"
-        @port = port
+      def initialize
+        @port = ::Edld::Config.port
+        Edld::Log.debug "Connected to #{@port}"
       end
 
       attr_reader :port

@@ -4,7 +4,7 @@ require 'xmlsimple'
 require 'observer'
 
 require 'edld/cli'
-require 'edld/inputs'
+require 'edld/sources'
 require 'edld/protocols'
 require 'edld/outputs'
 require 'edld/datalogger'

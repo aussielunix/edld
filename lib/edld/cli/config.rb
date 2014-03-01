@@ -3,10 +3,10 @@ module Edld
     extend Mixlib::Config
 
     default :log_level, :warn
-    default :config_file, "#{ENV['HOME']}/.edld.conf"
+    default :config_file, "/etc/edld/edld.conf"
     default :serial_port, '/dev/ttyUSB0'
     default :foreground, false
 
-    config_strict_mode true
+    config_strict_mode false
   end
 end

@@ -26,22 +26,16 @@ module Edld
       :boolean      => true,
       :default      => false
 
-    option :serial_port,
-      :short        => '-s',
-      :long         => '--port PORT',
-      :description  => 'serial port to connect to [/dev/ttyUSB0]',
-      :required     => true,
-      :default      => '/dev/ttyUSB0'
-
     def run(argv=ARGV)
       parse_options(argv)
       ::Edld::Config.merge!(config)
+      ::Edld::Config.from_file(::Edld::Config.config_file)
 
       ::Edld::Log.level = Edld::Config.log_level
 
-      input       = ::Edld::Input::Serial.new(::Edld::Config.serial_port)
-      protocol    = ::Edld::Protocol::CurrentCost.new(input)
-      datalogger  = ::Edld::DataLogger.new(input, protocol)
+      source      = ::Edld::Source.factory(::Edld::Config.source).new
+      protocol    = ::Edld::Protocol::CurrentCost.new(source)
+      datalogger  = ::Edld::DataLogger.new(source, protocol)
 
       datalogger.add_observer(Edld::Output::Debug.new) if ::Edld::Config.log_level == 'debug'
       datalogger.add_observer(Edld::Output::Syslog.new)

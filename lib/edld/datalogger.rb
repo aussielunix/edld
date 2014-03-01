@@ -2,11 +2,11 @@ module Edld
   class DataLogger
     include Observable
 
-    def initialize(input, protocol)
-      @input    = input
+    def initialize(source, protocol)
+      @source   = source
       @protocol = protocol
 
-      Edld::Log.debug "Edld::DataLogger instanciated with an input of #{input.port} and a protocol of #{protocol.name}."
+      Edld::Log.debug "Edld::DataLogger instanciated with a source of #{source.port} and a protocol of #{protocol.name}."
     end
 
     def run
@@ -21,9 +21,9 @@ module Edld
       Daemons.daemonize(daemon_options)
 
 
-      # TODO: loop forever reading input and notifying observers
+      # TODO: loop forever reading source and notifying observers
       loop {
-        @input.get
+        @source.get
         sleep 5
       }
     end
