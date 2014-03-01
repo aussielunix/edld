@@ -1,0 +1,1 @@
+require 'edld/inputs/serial'

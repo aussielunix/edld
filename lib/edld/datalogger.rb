@@ -2,49 +2,29 @@ module Edld
   class DataLogger
     include Observable
 
-    def run
+    def initialize(input, protocol)
+      @input    = input
+      @protocol = protocol
 
+      Edld::Log.debug "Edld::DataLogger instanciated with an input of #{input.port} and a protocol of #{protocol.name}."
+    end
+
+    def run
       daemon_options = {
         :ontop    => Edld::Config.foreground,
         :app_name => 'edld',
         :dir      => '/var/run/edld',
         :dir_mode => :normal
       }
-
       #TODO: look at Daemonize#run_proc
       #TODO: http://daemons.rubyforge.org/Daemons.html
       Daemons.daemonize(daemon_options)
 
-      # TODO: move to a config file
-      #
-      port_str   = Edld::Config.serial_port
-      baud_rate  = 57600
-      data_bits  = 8
-      stop_bits  = 1
-      parity     = SerialPort::NONE
 
-      # connect to serial port
-      #
-      begin
-        sp = SerialPort.new(port_str, baud_rate, data_bits, stop_bits, parity)
-        Edld::Log.debug "Connected to #{port_str}"
-      rescue => e
-        Edld::Log.fatal "Something went wrong connecting to #{port_str}"
-        Edld::Log.debug e
-        exit 1
-      end
-
-      # loop for ever reading the serial port
-      #
+      # TODO: loop forever reading input and notifying observers
       loop {
-        raw_data  = sp.readline.chomp!
-        unless raw_data == ''
-          data      = XmlSimple.xml_in(raw_data)
-          Edld::Log.debug "Edld::DataLogger raw data dump #{data.inspect}"
-          changed
-          notify_observers(data)
-        end
-        sleep 1
+        @input.get
+        sleep 5
       }
     end
   end

@@ -39,9 +39,12 @@ module Edld
 
       ::Edld::Log.level = Edld::Config.log_level
 
-      datalogger = ::Edld::DataLogger.new
-      datalogger.add_observer(Edld::Notifier::Debug.new) if ::Edld::Config.log_level == 'debug'
-      datalogger.add_observer(Edld::Notifier::Syslog.new)
+      input       = ::Edld::Input::Serial.new(::Edld::Config.serial_port)
+      protocol    = ::Edld::Protocol::CurrentCost.new(input)
+      datalogger  = ::Edld::DataLogger.new(input, protocol)
+
+      datalogger.add_observer(Edld::Output::Debug.new) if ::Edld::Config.log_level == 'debug'
+      datalogger.add_observer(Edld::Output::Syslog.new)
       datalogger.run
     end
   end
