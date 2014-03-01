@@ -1,7 +1,6 @@
 ## edld - Environment Data Logging Daemon
 
-*edld* is an environmental data logger. It will take data from a variety of
-sensors/sources and dump to a variety of outputs.
+*edld* is an environmental data logger. It will take data from a variety of sensors/sources and dump to a variety of outputs.
 
 It is fully plugable in all directions.
 
@@ -9,7 +8,7 @@ It is fully plugable in all directions.
 * protocol to process
 * outputs
 
-The immediate goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a db.
+The immediate goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a db.  
 Long term goal is to be able to read data from almost anything and to send it to almost anywhere.
 
 ## Input Sources
@@ -24,13 +23,13 @@ This can be a variety of things, you just need to write the source plugin.
 
 ## Protocols
 
-Each soure you want to work with will implement their own data format - xml, json, csv or some custom format.
+Each soure you want to work with will implement their own data format - xml, json, csv or some custom format.  
 You just need to write a plugin for processing the raw data feed.
 
 ## Outputs
 
 Edld uses the 'Observer' software design pattern to make it easy to notify more
-than one 'observer' or 'notifier' when new data is recieved.
+than one 'observer' or 'notifier' when new data is recieved.  
 This means that you just need to write an output plugin that takes the data and
 does something with it.
 
