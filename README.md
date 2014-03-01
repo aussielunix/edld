@@ -1,20 +1,52 @@
 ## edld - Environment Data Logging Daemon
 
-*edld* is an environmental data logger. It will take data from a variety of sensors/sources and dump to a db.
+*edld* is an environmental data logger. It will take data from a variety of
+sensors/sources and dump to a variety of outputs.
 
-The current goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a mysql db in a format that [MeasureIT](https://code.google.com/p/measureit/) can use.
+It is fully plugable in all directions.
+
+* input sources
+* protocol to process
+* outputs
+
+The immediate goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a db.
+Long term goal is to be able to read data from almost anything and to send it to almost anywhere.
+
+## Input Sources
+
+This can be a variety of things, you just need to write the source plugin.
+
+* Read from a serial port
+* consume an external API (eg: weather data)
+* read from a unix socket
+* read from a tcp socket
+* ??
+
+## Protocols
+
+Each soure you want to work with will implement their own data format - xml, json, csv or some custom format.
+You just need to write a plugin for processing the raw data feed.
+
+## Outputs
+
+Edld uses the 'Observer' software design pattern to make it easy to notify more
+than one 'observer' or 'notifier' when new data is recieved.
+This means that you just need to write an output plugin that takes the data and
+does something with it.
+
+* stores in a db
+* sends offsite to thirparty api
+* sends to graylog2, logstash, splunk logging system
+* drops data onto some sort of message bus (amqp etc)
+* ??
 
 ### Goals
 
 * ability to daemonize
-* decent logging
-* decent CLI ui/ux
 * ease to get up and running
-* scheduled tasks for calculating usage - hourly, daily, weekly, monthly etc etc 
-* handle multiple sensors
-* email alerting system for errors
-* send data to PVOutput
- * plugins would be a good idea here
+* extremly flexible
+* easy to create plugins
+
 
 
 ### Contributing
