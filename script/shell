@@ -4,7 +4,7 @@ require 'pry'
 
 $:.unshift(File.expand_path(File.join(File.dirname(__FILE__), "..", "lib")))
 
-#require 'edld'
+require 'edld'
 
 Pry.config.prompt = [proc { "edld> " }, proc { "EDLD| " }]
 Pry.start

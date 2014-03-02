@@ -25,15 +25,15 @@ This can be a variety of things, you just need to write the source plugin.
 
 ## Protocols
 
-Each soure you want to work with will implement their own data format - xml, json, csv or some custom format.  
-You just need to write a plugin for processing the raw data feed.
+Each source you want to work with will implement their own data format - xml, json, csv or some custom format.  
+You just need to write a protocol plugin for processing the raw data feed.
 
 ## Outputs
 
 Edld uses the 'Observer' software design pattern to make it easy to notify more
 than one 'observer' or 'notifier' when new data is recieved.  
 This means that you just need to write an output plugin that takes the data and
-does something with it.
+does something with it and register it in the config file.
 
 * stores in a db
 * sends offsite to thirparty api
@@ -43,10 +43,9 @@ does something with it.
 
 ### Goals
 
-* ability to daemonize
 * ease to get up and running
-* extremly flexible
-* easy to create plugins
+* easy to contribute / extend
+* extremely flexible
 
 
 
@@ -57,6 +56,7 @@ See [Contributing](CONTRIBUTING.md)
 ### Licence
 
 The MIT License (MIT)  
-Copyright 2013 Mick Pollard @aussielunix
+Copyright 2014  
+Mick Pollard [@aussielunix](http://twitter.com/aussielunix)
 
 See [LICENSE](LICENSE.md)

@@ -1,7 +1,6 @@
 module Edld
   class CLI
     include Mixlib::CLI
-    include Edld::Shellout
 
     option :log_level,
       :short => "-l LEVEL",
