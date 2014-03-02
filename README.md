@@ -1,5 +1,7 @@
 ## edld - Environment Data Logging Daemon
 
+*WARNING: This is a work in progress and is not stable yet*
+
 *edld* is an environmental data logger. It will take data from a variety of sensors/sources and dump to a variety of outputs.
 
 It is fully plugable in all directions.
