@@ -10,9 +10,6 @@ It is fully plugable in all directions.
 * protocol to process
 * outputs
 
-The immediate goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a db.  
-Long term goal is to be able to read data from almost anything and to send it to almost anywhere.
-
 ## Input Sources
 
 This can be a variety of things, you just need to write the source plugin.
@@ -42,6 +39,9 @@ does something with it and register it in the config file.
 * ??
 
 ### Goals
+
+The immediate goal is to be able to retrieve data from my [Current Cost Envir](http://www.currentcost.com/product-envir.html) and dump into a db.  
+Long term goal is to be able to read data from almost anything and to send it to almost anywhere.
 
 * ease to get up and running
 * easy to contribute / extend
