@@ -34,7 +34,7 @@ module Edld
       ::Edld::Log.level = Edld::Config.log_level
 
       source      = ::Edld::Source.factory(::Edld::Config.source).new
-      protocol    = ::Edld::Protocol::CurrentCost.new(source)
+      protocol    = ::Edld::Protocol.factory(::Edld::Config.protocol).new
       datalogger  = ::Edld::DataLogger.new(source, protocol)
 
       datalogger.add_observer(Edld::Output::Debug.new) if ::Edld::Config.log_level == 'debug'
