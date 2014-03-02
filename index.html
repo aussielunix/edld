@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>Edld by aussielunix</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>Edld</h1>
+        <h2>Take (environmental) data from a variety of sources and send it to a variety of places</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/aussielunix/edld/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/aussielunix/edld/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/aussielunix/edld" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h2>
+<a name="edld---environment-data-logging-daemon" class="anchor" href="#edld---environment-data-logging-daemon"><span class="octicon octicon-link"></span></a>edld - Environment Data Logging Daemon</h2>
+
+<p><em>WARNING: This is a work in progress and is not stable yet</em></p>
+
+<p><em>edld</em> is an environmental data logger. It will take data from a variety of sensors/sources and dump to a variety of outputs.</p>
+
+<p>It is fully plugable in all directions.</p>
+
+<ul>
+<li>input sources</li>
+<li>protocol to process</li>
+<li>outputs</li>
+</ul><p>The immediate goal is to be able to retrieve data from my <a href="http://www.currentcost.com/product-envir.html">Current Cost Envir</a> and dump into a db.<br>
+Long term goal is to be able to read data from almost anything and to send it to almost anywhere.</p>
+
+<h2>
+<a name="input-sources" class="anchor" href="#input-sources"><span class="octicon octicon-link"></span></a>Input Sources</h2>
+
+<p>This can be a variety of things, you just need to write the source plugin.</p>
+
+<ul>
+<li>Read from a serial port</li>
+<li>consume an external API (eg: weather data)</li>
+<li>read from a unix socket</li>
+<li>read from a tcp socket</li>
+<li>??</li>
+</ul><h2>
+<a name="protocols" class="anchor" href="#protocols"><span class="octicon octicon-link"></span></a>Protocols</h2>
+
+<p>Each source you want to work with will implement their own data format - xml, json, csv or some custom format.<br>
+You just need to write a protocol plugin for processing the raw data feed.</p>
+
+<h2>
+<a name="outputs" class="anchor" href="#outputs"><span class="octicon octicon-link"></span></a>Outputs</h2>
+
+<p>Edld uses the 'Observer' software design pattern to make it easy to notify more
+than one 'observer' or 'notifier' when new data is recieved.<br>
+This means that you just need to write an output plugin that takes the data and
+does something with it and register it in the config file.</p>
+
+<ul>
+<li>stores in a db</li>
+<li>sends offsite to thirparty api</li>
+<li>sends to graylog2, logstash, splunk logging system</li>
+<li>drops data onto some sort of message bus (amqp etc)</li>
+<li>??</li>
+</ul><h3>
+<a name="goals" class="anchor" href="#goals"><span class="octicon octicon-link"></span></a>Goals</h3>
+
+<ul>
+<li>ease to get up and running</li>
+<li>easy to contribute / extend</li>
+<li>extremely flexible</li>
+</ul><h3>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h3>
+
+<p>See <a href="CONTRIBUTING.md">Contributing</a></p>
+
+<h3>
+<a name="licence" class="anchor" href="#licence"><span class="octicon octicon-link"></span></a>Licence</h3>
+
+<p>The MIT License (MIT)<br>
+Copyright 2014<br>
+Mick Pollard <a href="http://twitter.com/aussielunix">@aussielunix</a></p>
+
+<p>See <a href="LICENSE.md">LICENSE</a></p>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
